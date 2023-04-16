@@ -147,6 +147,40 @@ a:hover {
 	width: 100%;
 
 }
+
+/* ajout filtre bouton */
+.filter {
+	width: fit-content;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	gap: 10px;
+	margin: 50px auto;
+	justify-content: center;
+	margin-top: 60px;
+  }
+  .btn {
+	border-radius: 60px;
+	padding: 1.2em 1.8em;
+	font-family: "Syne";
+	font-size: 16px;
+	font-weight: 700;
+	border: 1px solid #1d6154;
+	color: #1d6154;
+	background: none;
+	transition: 0.3s ease;
+  }
+  .btn:hover {
+	background-color: #1d6154;
+	color: #fffef8;
+	cursor: pointer;
+	transform: scale(1.05);
+  }
+  .active {
+	background: #1d6154;
+	color: #fffef8;
+  }
+
 #contact {
 	width: 50%;
 margin: auto;
