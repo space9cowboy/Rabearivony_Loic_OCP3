@@ -43,12 +43,12 @@ function worksDisplay(data) {
     const works = document.querySelector(".gallery");
           
           data.forEach(work => {
-            const workElement = document.createElement('div');
+            const workElement = document.createElement('figure');
             workElement.innerHTML = `
-              <figure>
+              
               <img src="${work.imageUrl}" alt="${work.title}"/>
               <figcaption>${work.title}</figcaption>
-              </figure>
+        
             `;
             works.appendChild(workElement);
           });
