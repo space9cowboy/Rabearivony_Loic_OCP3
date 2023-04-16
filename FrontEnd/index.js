@@ -16,12 +16,9 @@ async function fetchWorksApi() {
         .then((data) => (works = data)) ;
         console.log("La récupération des données de l'API est ok");
         console.log(works);
+
+        worksDisplay(works);
     }
-  /* Le bloc `catch` gère les erreurs qui peuvent survenir pendant l'exécution du bloc `try`.
-   Si une erreur survient, elle sera attrapée et le message d'erreur sera enregistré dans la console avec le
-   avec le message "erreur fetchWorksApi". 
-   Cela permet de s'assurer que le programme ne se plante pas et que les erreurs sont correctement gérées et rapportées.
-   et que les erreurs sont correctement gérées et rapportées. */
    
     catch (err) {
         console.log("erreur fetchWorksApi", err);
@@ -39,6 +36,29 @@ ce qui permet d'éviter les problèmes potentiels liés à la synchronisation de
 tout problème potentiel lié à la synchronisation de la demande d'API. */
 
 window.addEventListener("load", () => fetchWorksApi());
+
+function worksDisplay(data) {
+
+    // Récupérez l'élément HTML dans lequel vous souhaitez insérer les éléments.
+    const works = document.querySelector(".gallery");
+          
+          data.forEach(work => {
+            const workElement = document.createElement('div');
+            workElement.innerHTML = `
+              <figure>
+              <img src="${work.imageUrl}" alt="${work.title}"/>
+              <figcaption>${work.title}</figcaption>
+              </figure>
+            `;
+            works.appendChild(workElement);
+          });
+
+}
+
+
+  
+  
+  
 
 
 
