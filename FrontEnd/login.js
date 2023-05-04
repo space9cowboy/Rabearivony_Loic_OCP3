@@ -1,4 +1,5 @@
 
+
 const api = "http://localhost:5678/api/users/login";
 
 /* creation user for API */
@@ -7,6 +8,7 @@ const userForApi = {
     "password": ""
 };
 
+/* recupération de l'élément avec l'Id login-form */
 const postForm = document.getElementById("login-form");
 
 /* recupération de l'élément avec l'Id email */
