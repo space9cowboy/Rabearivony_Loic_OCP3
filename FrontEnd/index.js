@@ -3,7 +3,6 @@
 au code. Dans ce cas, l'API est hébergée localement sur la même machine que le code, et est accessible à l'adresse suivante
 `http://localhost:5678/api/`. */
 const api = "http://localhost:5678/api/";
-console.log("ca marche");
 
 /* `let categoryId = "";` initialise une variable `categoryId` avec une chaîne de valeur vide. Cette variable
 est utilisée pour stocker l'ID de la catégorie sélectionnée afin de filtrer les œuvres affichées sur la page. */
@@ -203,5 +202,40 @@ function checkToken() {
     console.log("pas de token en mémoire");
   } else {
     console.log("token en mémoire => MODE ADMIN ACTIVE");
+    adminPage();
   }
 }
+//LOG OUT!! a la fermeture onglet / redirection & Rechargement pour la sécurité
+function removeToken() {
+  // Supprime le token du localStorage
+  localStorage.removeItem("token");
+}
+//événement fermeture onglet ou redirection vers un autre site
+window.addEventListener("unload", removeToken);
+
+function adminPage() {
+  adminEditor();
+}
+// création de l'Admin Editor
+const adminEditor = () => {
+  //création du logout
+  // séléction de l'élément "login" sur le "li" a modifier
+  const logout = document.querySelector("ul > li:nth-child(3)");
+
+  // créer un élément <a> pour le lien de déconnexion
+  const logoutLink = document.createElement("a");
+  logoutLink.href = "./login.html";
+
+  const logoutText = document.createTextNode("logout");
+  logoutLink.appendChild(logoutText);
+
+  logout.innerHTML = "";
+  logout.appendChild(logoutLink);
+
+  // événement deconnexion
+  logoutLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    removeToken();
+    window.location.assign("./index.html");
+  });
+};
