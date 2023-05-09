@@ -47,6 +47,7 @@ tout problème potentiel lié à la synchronisation de la demande d'API. */
 window.addEventListener("load", () => {
   fetchWorksApi();
   fetchCategoriesApi();
+
   /* attribution d'id a la page de départ */
   categoryId = "Tous";
   checkToken();
@@ -202,10 +203,10 @@ function checkToken() {
     console.log("pas de token en mémoire");
   } else {
     console.log("token en mémoire => MODE ADMIN ACTIVE");
-    adminPage();
+    adminEditor();
   }
 }
-//LOG OUT!! a la fermeture onglet / redirection & Rechargement pour la sécurité
+// LOG OUT!! a la fermeture onglet / redirection & Rechargement pour la sécurité
 function removeToken() {
   // Supprime le token du localStorage
   localStorage.removeItem("token");
@@ -213,29 +214,57 @@ function removeToken() {
 //événement fermeture onglet ou redirection vers un autre site
 window.addEventListener("unload", removeToken);
 
-function adminPage() {
-  adminEditor();
-}
 // création de l'Admin Editor
-const adminEditor = () => {
+function adminEditor() {
+  // création de la barre admin editor
+  const $bannerEditor = document.createElement("div");
+  $bannerEditor.classList.add("bannerEditor");
+  document
+    .querySelector("body")
+    .insertBefore($bannerEditor, document.querySelector("body").firstChild);
+
+  const $spanBannerEditor = document.createElement("span");
+  $spanBannerEditor.classList.add("projectRemove");
+  $spanBannerEditor.textContent = "Mode édition";
+
+  // création de l'icone pour le SPAN "mode édition"
+  const $iconBannerEditor = document.createElement("i");
+  $iconBannerEditor.className = "fas fa-pencil-alt";
+
+  //insertion de l'icone "i" avant le SPAN "mode édition"
+  $spanBannerEditor.insertBefore(
+    $iconBannerEditor,
+    $spanBannerEditor.firstChild
+  );
+
+  //création d'un button "publiez les changements"
+  const $btnBannerEditor = document.createElement("button");
+  $btnBannerEditor.textContent = "publiez les changements";
+
+  $bannerEditor.innerHTML = "";
+  $bannerEditor.appendChild($spanBannerEditor);
+  $bannerEditor.appendChild($btnBannerEditor);
+
   //création du logout
   // séléction de l'élément "login" sur le "li" a modifier
-  const logout = document.querySelector("ul > li:nth-child(3)");
+  const $logout = document.querySelector("ul > li:nth-child(3)");
 
   // créer un élément <a> pour le lien de déconnexion
-  const logoutLink = document.createElement("a");
-  logoutLink.href = "./login.html";
+  const $logoutLink = document.createElement("a");
+  $logoutLink.href = "./login.html";
 
-  const logoutText = document.createTextNode("logout");
-  logoutLink.appendChild(logoutText);
+  const $logoutText = document.createTextNode("logout");
+  $logoutLink.appendChild($logoutText);
 
-  logout.innerHTML = "";
-  logout.appendChild(logoutLink);
+  $logout.innerHTML = "";
+  $logout.appendChild($logoutLink);
 
   // événement deconnexion
-  logoutLink.addEventListener("click", (event) => {
+  $logoutLink.addEventListener("click", (event) => {
     event.preventDefault();
     removeToken();
     window.location.assign("./index.html");
   });
-};
+
+  // ajout du "mode édition" en dessous de la photo
+}

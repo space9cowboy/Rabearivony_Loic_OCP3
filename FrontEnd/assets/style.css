@@ -1,7 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -48,8 +45,7 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
-	margin:auto;
+	margin: 0;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
@@ -229,4 +225,48 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+
+/* page admin editor */
+/* bandeau noir (mode édition) */
+.bannerEditor {
+	margin: 0;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+	height: 80px;
+	width: 100%;
+  }
+  .marginTop {
+	margin-top: 100px;
+  }
+  .fas  {
+	color: white;
+	font-size: 16px;
+  }
+  .projectRemove {
+	color: white;
+	font-size: 16px;
+  }
+  .projectRemove > i {
+	padding-right: 10px;
+  }
+  .bannerEditor button {
+	color: black;
+	font-size: 14px;
+	width: 216px;
+	height: 40px;
+	border-radius: 60px;
+	margin-left: 20px;
+	outline: none;
+	border: 2px solid black;
+	transition: 0.3s ease;
+  }
+  .bannerEditor button:hover {
+	transform: scale(1.05);
+	color: white;
+	background: #1d6154;
+  }
 
