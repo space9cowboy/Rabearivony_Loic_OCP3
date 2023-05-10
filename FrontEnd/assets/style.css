@@ -270,3 +270,31 @@ footer nav ul {
 	background: #1d6154;
   }
 
+  /* Mode éditor sous la photo */
+  .figureRemove {
+	display: flex;
+	flex-direction: row;
+	padding: 20px 10%;
+	color: black;
+  }
+  .figureRemove i {
+	padding-right: 20px;
+	color: black;
+  }
+
+  /* Mode éditor a droite de projet */
+  #titleProjectRemove {
+  font-family: "Work Sans";
+  font-weight: normal;
+  color: black;
+  font-size: 14px;
+  padding-left: 20px;
+}
+#titleProjectRemove:hover {
+  cursor: pointer;
+}
+#titleProjectRemove i {
+  padding-right: 10px;
+  color: black;
+}
+

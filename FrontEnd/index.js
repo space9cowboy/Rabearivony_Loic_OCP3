@@ -266,5 +266,32 @@ function adminEditor() {
     window.location.assign("./index.html");
   });
 
-  // ajout du "mode édition" en dessous de la photo
+  // ajout de la span "mode édition" et de l'icone en dessous de la photo
+  const $figure = document.querySelector("#introduction > figure");
+
+  const $iconFigureEditor = document.createElement("i");
+  $iconFigureEditor.className = "fas fa-pencil-alt";
+
+  const $spanFigure = document.createElement("span");
+  $spanFigure.classList.add("figureRemove");
+  $spanFigure.textContent = "Mode édition";
+
+  $figure.appendChild($spanFigure);
+  $spanFigure.insertBefore($iconFigureEditor, $spanFigure.firstChild);
+
+  // ajout de la span "mode édition" et de l'icone a droite des projets
+  const $iconProjectFigureEditor = document.createElement("i");
+  $iconProjectFigureEditor.className = "fas fa-pencil-alt";
+
+  const $projectFigure = document.querySelector("#portfolio > h2");
+  const $spanProjectFigure = document.createElement("span");
+
+  $spanProjectFigure.setAttribute("id", "titleProjectRemove");
+  $spanProjectFigure.textContent = "Mode édition";
+
+  $projectFigure.appendChild($spanProjectFigure);
+  $spanProjectFigure.insertBefore(
+    $iconProjectFigureEditor,
+    $spanProjectFigure.firstChild
+  );
 }
