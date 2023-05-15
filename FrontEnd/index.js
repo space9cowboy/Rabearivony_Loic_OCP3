@@ -216,6 +216,19 @@ window.addEventListener("unload", removeToken);
 
 // création de l'Admin Editor
 function adminEditor() {
+  adminContainer();
+  // Ouverure de la première modale
+  const $modalJs = document.getElementById("titleProjectRemove");
+  // Appel a l'évenement lors du click sur la modale
+  $modalJs.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("ouverture de la modale");
+    modalContainer();
+    displayModal();
+  });
+}
+
+const adminContainer = () => {
   // création de la barre admin editor
   const $bannerEditor = document.createElement("div");
   $bannerEditor.classList.add("bannerEditor");
@@ -294,4 +307,94 @@ function adminEditor() {
     $iconProjectFigureEditor,
     $spanProjectFigure.firstChild
   );
+};
+
+const modalContainer = () => {
+  const modal = document.createElement("aside");
+  modal.id = "modal";
+  modal.className = "modal";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-labelledby", "modalTitle");
+  modal.setAttribute("aria-hidden", "true");
+  modal.setAttribute("display", "initial");
+
+  modal.innerHTML = `
+  <div id="modalContainer">
+
+  <i id="closeModal" class="fa-solid fa-xmark"></i>
+  <i id="previewModal" class="fa-solid fa-arrow-left "></i>
+
+  
+  <section class="modalTemplate" id="modalEdit">
+
+
+    <div id="editionGallery">
+      <h2 class="modalTitle">Galerie photo</h2>
+      <!-- <i id="deleteIcon" class="fa-solid fa-trash-can iconModal"></i>
+      <i id="moveIcon" class="fa-solid fa-arrows-up-down-left-right iconModal"></i> -->
+      <div id="modalGrid">
+      </div>
+    </div>
+    <div class="footerModal">
+      <hr>
+      <input type="submit" value="Ajouter une photo" id="editModal">
+      <p id="deleteAllWorks">Supprimer la gallerie</p>
+    </div>
+  </section>
+
+  <section class="modalTemplate" id="editSection" style="display:none">
+
+    <h2 class="modalTitle">Ajout photo</h2>
+
+    <form id="editWorks">
+
+      <div id="addImageContainer">
+        <i class="fa-solid fa-image"></i>
+
+        <div id="inputFile">
+          <label for="filetoUpload" class="fileLabel">
+            <span>+ Ajouter une photo</span>
+            <input type="file" id="filetoUpload" name="image" accept="image/png, image/jpeg"
+              class="file-input">
+          </label>
+        </div>
+        <span class="filesize">jpg, png : 4mo max</span>
+        <span id="errorImg"></span>
+      </div>
+
+      <div class="inputEdit" id="addTitle">
+        <label for="title">Titre</label>
+        <input type="text" name="title" id="title" class="inputCss" required>
+        <span id="ErrorTitleSubmit" class="errormsg"></span>
+      </div>
+
+      <div class=" inputEdit" id="addCategory">
+        <label for="category">Catégorie</label>
+        <select name="category" id="category" data-id="" class="inputCss"></select>
+        <span id="ErrorCategorySubmit" class="errormsg"></span>
+      </div>
+
+      <div class="footerModal editFooter">
+        <hr>
+        <input type="submit" value="Valider">
+      </div>
+    </form>
+  </section>
+
+</div>
+  `;
+  document.body.appendChild(modal);
+};
+
+function displayModal() {
+  const modal = document.querySelector("#modal");
+  const closeModalBtn = document.querySelector("#closeModal");
+  closeModalBtn.addEventListener("click", closeModal);
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+}
+
+function closeModal() {
+  document.getElementById("modal").remove();
 }

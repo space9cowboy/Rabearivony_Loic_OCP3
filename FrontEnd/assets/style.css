@@ -298,3 +298,138 @@ footer nav ul {
   color: black;
 }
 
+/* ===== page modale ===== */
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.2);
+  }
+  .modalOpen {
+	overflow: hidden;
+  }
+  
+  #modalContainer {
+	position: relative;
+	background-color: white;
+	overflow: auto;
+	width: 35%;
+	min-width: 700px;
+	min-height: 700px;
+	border-radius: 10px;
+	padding-top: 70px;
+	padding-bottom: 10px;
+  }
+  
+  #closeModal {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-size: 1.5em;
+  }
+  #previewModal {
+	display: none;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	font-size: 1.5em;
+  }
+  #previewModal:hover {
+	cursor: pointer;
+  }
+  #closeModal:hover {
+	cursor: pointer;
+  }
+  .modalTemplate {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	min-height: 700px;
+	margin: 0;
+	padding: 0 15%;
+  }
+  .modalTitle {
+	color: black;
+	text-align: center;
+	padding-bottom: 40px;
+  }
+  .iconModal {
+	display: inline-block;
+	font-size: 0.7em;
+	padding: 4px;
+	background-color: black;
+	color: white;
+  }
+  #editionGallery {
+	height: 70%;
+  }
+  #modalGrid {
+	width: auto;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	column-gap: 10px;
+	row-gap: 25px;
+  }
+  #modalGrid > figure {
+	position: relative;
+  }
+  #modalGrid img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+  }
+  
+  #deleteIcon {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+  }
+  #deleteIcon:hover {
+	cursor: crosshair;
+  }
+  
+  #moveIcon {
+	position: absolute;
+	top: 3px;
+	right: 23px;
+  }
+  #moveIcon:hover {
+	cursor: move;
+  }
+  .footerModal {
+	margin-top: 20px;
+	text-align: center;
+	height: 30%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+  }
+  hr {
+	width: 100%;
+  }
+  .modalTemplate input[type="submit"] {
+	width: 60%;
+	text-align: center;
+	padding: 10px 45px;
+  }
+  .modalTemplate input[type="button"] {
+	width: 60%;
+	text-align: center;
+	padding: 10px 45px;
+  }
+  #deleteAllWorks {
+	color: red;
+	margin-bottom: 40px;
+  }
+  
+  #deleteAllWorks:hover {
+	cursor: pointer;
+  }
+
