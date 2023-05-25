@@ -3,6 +3,7 @@
 au code. Dans ce cas, l'API est hébergée localement sur la même machine que le code, et est accessible à l'adresse suivante
 `http://localhost:5678/api/`. */
 const api = "http://localhost:5678/api/";
+const token = localStorage.getItem("token");
 
 /* `let categoryId = "";` initialise une variable `categoryId` avec une chaîne de valeur vide. Cette variable
 est utilisée pour stocker l'ID de la catégorie sélectionnée afin de filtrer les œuvres affichées sur la page. */
@@ -180,7 +181,11 @@ function btnCategoriesFilter(categories) {
 /* Création des works */
 function worksTemplates(work) {
   const $workFigures = document.createElement("figure");
+  //Ajout d'un data set work pour l'étape d'attribution des ID dans la modale
+  $workFigures.setAttribute("data-work-id", work.id);
+  $workFigures.setAttribute("data-value", work.categoryId);
 
+  // Injection de mes images dans les workstemplates
   const $workImg = document.createElement("img");
   $workImg.setAttribute("src", work.imageUrl);
   $workImg.setAttribute("alt", work.title);
@@ -210,11 +215,12 @@ function checkToken() {
 function removeToken() {
   // Supprime le token du localStorage
   localStorage.removeItem("token");
+  sessionStorage.removeItem("deletedImages");
 }
 //événement fermeture onglet ou redirection vers un autre site
 window.addEventListener("unload", removeToken);
 
-// création de l'Admin Editor
+/*****  création de l'Admin Editor ******/
 function adminEditor() {
   adminContainer();
   // Ouverure de la première modale
@@ -225,176 +231,83 @@ function adminEditor() {
     console.log("ouverture de la modale");
     modalContainer();
     displayModal();
+    openModal();
+  });
+
+  /*** Suppression des travaux de l'API ****/
+  const deleteWorksApi = document.querySelector("body > div > button");
+  //Confirmation DELETE CARTES dans L'API
+  deleteWorksApi.addEventListener("click", (e) => {
+    e.preventDefault();
+    fetchDeleteApi();
   });
 }
 
+/***** Barre editor, span et icon (log) ****/
+
 const adminContainer = () => {
-  // création de la barre admin editor
   const $bannerEditor = document.createElement("div");
   $bannerEditor.classList.add("bannerEditor");
-  document
-    .querySelector("body")
-    .insertBefore($bannerEditor, document.querySelector("body").firstChild);
+  document.body.insertBefore($bannerEditor, document.body.firstChild);
 
   const $spanBannerEditor = document.createElement("span");
   $spanBannerEditor.classList.add("projectRemove");
   $spanBannerEditor.textContent = "Mode édition";
 
-  // création de l'icone pour le SPAN "mode édition"
-  const $iconBannerEditor = document.createElement("i");
-  $iconBannerEditor.className = "fas fa-pencil-alt";
-
-  //insertion de l'icone "i" avant le SPAN "mode édition"
-  $spanBannerEditor.insertBefore(
-    $iconBannerEditor,
-    $spanBannerEditor.firstChild
-  );
-
-  //création d'un button "publiez les changements"
   const $btnBannerEditor = document.createElement("button");
-  $btnBannerEditor.textContent = "publiez les changements";
+  $btnBannerEditor.textContent = "Publiez les changements";
 
   $bannerEditor.innerHTML = "";
   $bannerEditor.appendChild($spanBannerEditor);
   $bannerEditor.appendChild($btnBannerEditor);
+  $spanBannerEditor.insertBefore(
+    createIcon("fas fa-pencil-alt"),
+    $spanBannerEditor.firstChild
+  );
 
-  //création du logout
-  // séléction de l'élément "login" sur le "li" a modifier
   const $logout = document.querySelector("ul > li:nth-child(3)");
-
-  // créer un élément <a> pour le lien de déconnexion
-  const $logoutLink = document.createElement("a");
-  $logoutLink.href = "./login.html";
-
-  const $logoutText = document.createTextNode("logout");
-  $logoutLink.appendChild($logoutText);
-
+  const $logoutLink = createLogoutLink();
   $logout.innerHTML = "";
   $logout.appendChild($logoutLink);
-
-  // événement deconnexion
   $logoutLink.addEventListener("click", (event) => {
     event.preventDefault();
     removeToken();
     window.location.assign("./index.html");
   });
 
-  // ajout de la span "mode édition" et de l'icone en dessous de la photo
   const $figure = document.querySelector("#introduction > figure");
-
-  const $iconFigureEditor = document.createElement("i");
-  $iconFigureEditor.className = "fas fa-pencil-alt";
-
-  const $spanFigure = document.createElement("span");
-  $spanFigure.classList.add("figureRemove");
-  $spanFigure.textContent = "Mode édition";
-
+  const $spanFigure = createModeEditionSpan("Mode édition");
   $figure.appendChild($spanFigure);
-  $spanFigure.insertBefore($iconFigureEditor, $spanFigure.firstChild);
-
-  // ajout de la span "mode édition" et de l'icone a droite des projets
-  const $iconProjectFigureEditor = document.createElement("i");
-  $iconProjectFigureEditor.className = "fas fa-pencil-alt";
 
   const $projectFigure = document.querySelector("#portfolio > h2");
   const $spanProjectFigure = document.createElement("span");
-
   $spanProjectFigure.setAttribute("id", "titleProjectRemove");
   $spanProjectFigure.textContent = "Mode édition";
 
   $projectFigure.appendChild($spanProjectFigure);
   $spanProjectFigure.insertBefore(
-    $iconProjectFigureEditor,
+    createIcon("fas fa-pencil-alt"),
     $spanProjectFigure.firstChild
   );
 };
 
-const modalContainer = () => {
-  const modal = document.createElement("aside");
-  modal.id = "modal";
-  modal.className = "modal";
-  modal.setAttribute("role", "dialog");
-  modal.setAttribute("aria-labelledby", "modalTitle");
-  modal.setAttribute("aria-hidden", "true");
-  modal.setAttribute("display", "initial");
-
-  modal.innerHTML = `
-  <div id="modalContainer">
-
-  <i id="closeModal" class="fa-solid fa-xmark"></i>
-  <i id="previewModal" class="fa-solid fa-arrow-left "></i>
-
-  
-  <section class="modalTemplate" id="modalEdit">
-
-
-    <div id="editionGallery">
-      <h2 class="modalTitle">Galerie photo</h2>
-      <!-- <i id="deleteIcon" class="fa-solid fa-trash-can iconModal"></i>
-      <i id="moveIcon" class="fa-solid fa-arrows-up-down-left-right iconModal"></i> -->
-      <div id="modalGrid">
-      </div>
-    </div>
-    <div class="footerModal">
-      <hr>
-      <input type="submit" value="Ajouter une photo" id="editModal">
-      <p id="deleteAllWorks">Supprimer la gallerie</p>
-    </div>
-  </section>
-
-  <section class="modalTemplate" id="editSection" style="display:none">
-
-    <h2 class="modalTitle">Ajout photo</h2>
-
-    <form id="editWorks">
-
-      <div id="addImageContainer">
-        <i class="fa-solid fa-image"></i>
-
-        <div id="inputFile">
-          <label for="filetoUpload" class="fileLabel">
-            <span>+ Ajouter une photo</span>
-            <input type="file" id="filetoUpload" name="image" accept="image/png, image/jpeg"
-              class="file-input">
-          </label>
-        </div>
-        <span class="filesize">jpg, png : 4mo max</span>
-        <span id="errorImg"></span>
-      </div>
-
-      <div class="inputEdit" id="addTitle">
-        <label for="title">Titre</label>
-        <input type="text" name="title" id="title" class="inputCss" required>
-        <span id="ErrorTitleSubmit" class="errormsg"></span>
-      </div>
-
-      <div class=" inputEdit" id="addCategory">
-        <label for="category">Catégorie</label>
-        <select name="category" id="category" data-id="" class="inputCss"></select>
-        <span id="ErrorCategorySubmit" class="errormsg"></span>
-      </div>
-
-      <div class="footerModal editFooter">
-        <hr>
-        <input type="submit" value="Valider">
-      </div>
-    </form>
-  </section>
-
-</div>
-  `;
-  document.body.appendChild(modal);
+const createModeEditionSpan = (text) => {
+  const $span = document.createElement("span");
+  $span.classList.add("figureRemove");
+  $span.textContent = text;
+  $span.insertBefore(createIcon("fas fa-pencil-alt"), $span.firstChild);
+  return $span;
 };
 
-function displayModal() {
-  const modal = document.querySelector("#modal");
-  const closeModalBtn = document.querySelector("#closeModal");
-  closeModalBtn.addEventListener("click", closeModal);
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
-}
+const createIcon = (className) => {
+  const $icon = document.createElement("i");
+  $icon.className = className;
+  return $icon;
+};
 
-function closeModal() {
-  document.getElementById("modal").remove();
-}
+const createLogoutLink = () => {
+  const $logoutLink = document.createElement("a");
+  $logoutLink.href = "./login.html";
+  $logoutLink.textContent = "Logout";
+  return $logoutLink;
+};
