@@ -43,11 +43,14 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 /** end reset css**/
 body {
-	margin: 0;
+	margin: auto;
+	max-width: 1140px;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: rgb(255, 254, 248);
 }
 header {
 	display: flex;
@@ -71,7 +74,6 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -131,6 +133,8 @@ a:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+/******* PARTIE GALLERY *******/
 .gallery {
 	width: 100%;
 	display: grid;
@@ -141,10 +145,24 @@ a:hover {
 
 .gallery img {
 	width: 100%;
-
 }
 
-/* ajout filtre bouton */
+.gallery figure {
+	position: relative;
+	overflow: hidden;
+  }
+
+.gallery figure img {
+	object-fit: cover;
+	object-position: center;
+	height: 505.25px;
+	transition: transform 0.3s ease;
+  }
+.gallery figure img:hover {
+	transform: scale(1.2);
+  }
+
+/********* PARTIE BOUTONS **********/
 .filter {
 	width: fit-content;
 	display: flex;
@@ -177,9 +195,10 @@ a:hover {
 	color: #fffef8;
   }
 
+  /******* PARTIE CONTACT/LOGIN *******/
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -226,8 +245,55 @@ footer nav ul {
 	margin: 2em
 }
 
-/* page admin editor */
-/* bandeau noir (mode édition) */
+/****** PARTIE LOGIN ******/
+.selected-menu {
+	font-weight: bold;
+	cursor: not-allowed;
+  }
+  form input,
+  form textarea {
+	padding: 0 20px;
+  }
+  
+  #email {
+	color: #1d6154;
+	font-weight: bold;
+	outline: none;
+  }
+
+  #email:focus {
+	border: 2px solid #1d6154;
+	border-radius: 5px;
+  }
+  .login-error {
+	margin-top: 15px;
+	text-align: center;
+	color: red;
+	font-weight: bold;
+	font-size: 1.5em;
+  }
+  
+  .password-error {
+	margin-top: 15px;
+	text-align: center;
+	color: red;
+	font-weight: bold;
+	font-size: 1.5em;
+  }
+  #password {
+	color: #1d6154;
+	outline: none;
+  }
+  #password:focus {
+	border: 2px solid #1d6154;
+	border-radius: 5px;
+  }
+  .forgot-password {
+	text-decoration: underline;
+  }
+
+/******** PARTIE ADMIN EDITOR ********/
+/******** BANNIÈRE MODE EDITOR ********/
 .bannerEditor {
 	margin: 0;
 	top: 0;
@@ -236,11 +302,12 @@ footer nav ul {
 	align-items: center;
 	justify-content: center;
 	background-color: black;
-	height: 80px;
+	height: 60px;
 	width: 100%;
+	position: absolute;
   }
   .marginTop {
-	margin-top: 100px;
+	margin-top: 90px;
   }
   .fas  {
 	color: white;
@@ -270,7 +337,7 @@ footer nav ul {
 	background: #1d6154;
   }
 
-  /* Mode éditor sous la photo */
+  /**** Mode éditor sous la photo ****/
   .figureRemove {
 	display: flex;
 	flex-direction: row;
@@ -282,7 +349,7 @@ footer nav ul {
 	color: black;
   }
 
-  /* Mode éditor a droite de projet */
+  /**** Mode éditor a droite de projet ****/
   #titleProjectRemove {
   font-family: "Work Sans";
   font-weight: normal;
@@ -298,7 +365,7 @@ footer nav ul {
   color: black;
 }
 
-/* ===== page modale ===== */
+/********* PARTIE MODALE *********/
 .modal {
 	position: fixed;
 	display: flex;
@@ -432,4 +499,104 @@ footer nav ul {
   #deleteAllWorks:hover {
 	cursor: pointer;
   }
+
+/********* PARTIE MODALE EDIT **********/
+
+#editSection {
+	align-items: center;
+  }
+  #editWorks {
+	height: 600px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+  }
+  #addImageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	background-color: rgb(232, 241, 246);
+	height: 40%;
+	width: 100%;
+	padding: 20px 0;
+	margin-bottom: 40px;
+  }
+  #addImageContainer img {
+	object-fit: cover;
+	max-width: 100%;
+	max-height: 100%;
+  }
+  #addImageContainer i {
+	font-size: 8em;
+	color: rgba(185, 197, 204);
+	z-index: 4000;
+  }
+  
+  #errorImg {
+	text-align: center;
+	color: red;
+	font-size: 14px;
+	text-transform: uppercase;
+  }
+  .fileLabel {
+	display: inline-block;
+	background-color: rgb(203, 214, 220);
+	padding: 10px 15px;
+	border-radius: 25px;
+	cursor: pointer;
+  }
+  
+  .fileLabel span {
+	font-weight: bold;
+	color: rgb(87, 130, 155);
+  }
+  
+  .file-input {
+	display: none;
+  }
+  
+  #addTitle {
+	height: 15%;
+	width: 100%;
+  }
+  
+  #addCategory {
+	height: 15%;
+	width: 100%;
+  }
+  
+  .inputEdit {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+  }
+  .inputEdit label {
+	padding-bottom: 10px;
+	font-size: 16px;
+  }
+  .inputCss {
+	height: 30px;
+	border: 0px solid grey;
+	box-shadow: 8px 10px 23px 1px rgba(0, 0, 0, 0.34);
+	background-color: transparent;
+	outline: none;
+	padding: 0 20px;
+  }
+  .editFooter {
+	margin-top: 0;
+  }
+  #editWorks input[type="submit"] {
+	font-size: 18px;
+	background-color: rgb(167, 167, 167);
+  }
+  
+  .errormsg {
+	text-align: center;
+	padding-top: 20px;
+	color: red;
+  }
+  
 

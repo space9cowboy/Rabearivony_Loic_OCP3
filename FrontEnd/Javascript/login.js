@@ -12,7 +12,8 @@ const postPassword = document.getElementById("password");
 /* recupération de l'élément avec l'Id submit */
 const postSubmit = document.querySelector(".submit");
 
-/* creation user for API */
+//****  creation user for API *****//
+
 const userForApi = {
   email: postEmail.value,
   password: postPassword.value,
@@ -31,7 +32,8 @@ postForm.addEventListener("submit", (e) => {
   fetchLoginApi();
 });
 
-/* fetching login (recuperation) */
+//*****  fetching login (recuperation) *****//
+
 async function fetchLoginApi() {
   try {
     await fetch(api, {
@@ -47,14 +49,15 @@ async function fetchLoginApi() {
 
     if (login.message) {
       const $loginError = document.querySelector(".login-error");
-      $loginError.textContent = "identifiant incorrect";
+      $loginError.textContent = "identifiant incorrect !!!";
+      $loginError.style.color = "red";
     } else if (login.error) {
       const $passwordError = document.querySelector(".password-error");
-      $passwordError.textContent = "password incorrect";
+      $passwordError.textContent = "Mot de Passe incorrect !!!";
+      $passwordError.style.color = "red";
     } else {
       localStorage.setItem("token", login.token);
       window.location.href = "index.html";
-      console.log("c tout bon");
     }
   } catch (err) {
     console.log("erreur fetchLoginApi", err);
