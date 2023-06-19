@@ -1,5 +1,3 @@
-
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,7 +18,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
+/* réinitialisation du rôle d'affichage HTML5 pour les navigateurs plus anciens */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -45,6 +43,7 @@ table {
 }
 
 /** end reset css**/
+/** CSS page **/
 body {
 	margin: auto;
 	max-width: 1140px;
@@ -58,7 +57,8 @@ header {
 	margin: 50px 0
 }
 section {
-	margin: 50px 0
+	margin: 100px 0;
+	padding: 0 100px;
 }
 
 h1{
@@ -76,12 +76,6 @@ h1 > span {
 	letter-spacing: 0.1em;
 }
 
-h2{
-	font-family: 'Syne';
-	font-weight: 700;
-	font-size: 30px;
-	color: #1D6154
-}
 nav ul {
 	display: flex;
 	align-items: center;
@@ -89,8 +83,12 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
+	padding: 0 25px;
 	font-size: 1.2em;
+}
+
+nav img {
+	height: 25px;
 }
 
 a {
@@ -115,7 +113,6 @@ a:hover {
 }
 #introduction img {
 	display: block;
-	margin: auto;
 	width: 80%;
 }
 
@@ -124,14 +121,23 @@ a:hover {
 }
 #introduction h2 {
 	margin-bottom: 1em;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154
 }
 
 #introduction p {
-	margin-bottom: 0.5em;
+	margin-bottom: 1.1em;
+	
 }
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154
 }
 
 /******* PARTIE GALLERY *******/
@@ -155,7 +161,7 @@ a:hover {
 .gallery figure img {
 	object-fit: cover;
 	object-position: center;
-	height: 505.25px;
+	height: 413px;
 	transition: transform 0.3s ease;
   }
 .gallery figure img:hover {
@@ -175,7 +181,7 @@ a:hover {
   }
   .btn {
 	border-radius: 60px;
-	padding: 1.2em 1.8em;
+	padding: 0.7em 1.8em;
 	font-family: "Syne";
 	font-size: 16px;
 	font-weight: 700;
@@ -206,6 +212,10 @@ a:hover {
 }
 #contact h2{
 	margin-bottom: 20px;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154
 }
 #contact form {
 	text-align: left;
@@ -425,7 +435,10 @@ footer nav ul {
 	color: black;
 	text-align: center;
 	padding-bottom: 40px;
+	font-weight: 700;
+	font-size: 30px;
   }
+
   .iconModal {
 	display: inline-block;
 	font-size: 0.7em;
@@ -492,7 +505,7 @@ footer nav ul {
 	padding: 10px 45px;
   }
   #deleteAllWorks {
-	color: red;
+	color: #D65353;
 	margin-bottom: 40px;
   }
   
@@ -519,7 +532,7 @@ footer nav ul {
 	justify-content: space-around;
 	align-items: center;
 	background-color: rgb(232, 241, 246);
-	height: 40%;
+	height: 30%;
 	width: 100%;
 	padding: 20px 0;
 	margin-bottom: 40px;
@@ -534,6 +547,34 @@ footer nav ul {
 	color: rgba(185, 197, 204);
 	z-index: 4000;
   }
+
+  #switchContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	background-color: rgb(232, 241, 246);
+	height: 40%;
+	width: 100%;
+	padding: 20px 0;
+	margin-bottom: 40px;
+  }
+  #switchContainer img {
+	object-fit: cover;
+	max-width: 100%;
+	max-height: 100%;
+  }
+  #switchContainer i {
+	font-size: 5em;
+	margin-bottom: 25px;
+	margin-top: 50px;
+	color: rgba(185, 197, 204);
+	z-index: 4000;
+  }
+
+  #switchContainer span {
+	  margin-top: 10px;
+  }
   
   #errorImg {
 	text-align: center;
@@ -544,7 +585,7 @@ footer nav ul {
   .fileLabel {
 	display: inline-block;
 	background-color: rgb(203, 214, 220);
-	padding: 10px 15px;
+	padding: 15px 20px;
 	border-radius: 25px;
 	cursor: pointer;
   }
@@ -552,10 +593,15 @@ footer nav ul {
   .fileLabel span {
 	font-weight: bold;
 	color: rgb(87, 130, 155);
+	font-size: 16px;
   }
   
   .file-input {
 	display: none;
+  }
+
+  .filesize {
+	  font-size: 11px;
   }
   
   #addTitle {

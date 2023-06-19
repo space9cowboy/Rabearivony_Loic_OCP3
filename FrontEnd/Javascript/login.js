@@ -20,9 +20,11 @@ const userForApi = {
 };
 
 postEmail.addEventListener("input", (e) => {
+  clearEmailError();
   userForApi.email = e.target.value;
 });
 postPassword.addEventListener("input", (e) => {
+  clearPasswordError();
   userForApi.password = e.target.value;
 });
 postForm.addEventListener("submit", (e) => {
@@ -31,6 +33,17 @@ postForm.addEventListener("submit", (e) => {
   console.log("submit");
   fetchLoginApi();
 });
+
+// Fonctions pour effacer les messages d'erreur de l'email et du mot de passe
+function clearEmailError() {
+  const $loginError = document.querySelector(".login-error");
+  $loginError.textContent = "";
+}
+
+function clearPasswordError() {
+  const $passwordError = document.querySelector(".password-error");
+  $passwordError.textContent = "";
+}
 
 //*****  fetching login (recuperation) *****//
 
@@ -63,3 +76,5 @@ async function fetchLoginApi() {
     console.log("erreur fetchLoginApi", err);
   }
 }
+
+document.body.classList.add("marginTop");

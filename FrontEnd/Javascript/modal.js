@@ -37,7 +37,8 @@ function modalContainer() {
         <form id="editWorks">
     
           <div id="addImageContainer">
-            <i class="fa-solid fa-image"></i>
+          <div id="switchContainer">
+          <i class="fa-solid fa-image" style="color: #cdd2db;"></i>
     
             <div id="inputFile">
               <label for="filetoUpload" class="fileLabel">
@@ -48,6 +49,7 @@ function modalContainer() {
             </div>
             <span class="filesize">jpg, png : 4mo max</span>
             <span id="errorImg"></span>
+            </div>
           </div>
     
           <div class="inputEdit" id="addTitle">
@@ -233,8 +235,11 @@ function editModal() {
   const selectEditCategory = document.getElementById("category");
   const editSection = document.querySelector("#editSection");
   const gallerySection = document.querySelector("#modalEdit");
-  const previewModal = document.querySelector("#previewModal"); // Bouton
+  const previewModal = document.querySelector("#previewModal");
   const addToApi = document.getElementById("editWorks");
+  const addTitle = document.querySelector("#title");
+  const addImageContainer = document.querySelector("#addImageContainer");
+  const switchContainer = document.querySelector("#switchContainer");
 
   let titleSelected = false;
   let categorySelected = false;
@@ -247,28 +252,25 @@ function editModal() {
   });
 
   previewModal.addEventListener("click", () => {
+    localStorage.clear();
     gallerySection.style.display = "";
     editSection.style.display = "none";
     previewModal.style.display = "none";
+    addTitle.value = "";
+    addImageContainer.innerHTML = "";
+    addImageContainer.appendChild(switchContainer);
   });
 
   inputFile.addEventListener("change", addPicture);
 
   // SELECTION CATEGORIES - Génération des options de l'élément select à partir des données de l'API
-  if (selectEditCategory.options.length === 0) {
-    const emptyEditOption = document.createElement("option");
-    emptyEditOption.value = "";
-    emptyEditOption.textContent = "";
-    selectEditCategory.appendChild(emptyEditOption);
 
-    categories.forEach(function (category) {
-      const otherEditOption = document.createElement("option");
-      otherEditOption.textContent = category.name;
-      otherEditOption.setAttribute("data-id", category.id);
-      selectEditCategory.appendChild(otherEditOption);
-    });
-  }
-
+  categories.forEach(function (category) {
+    const otherEditOption = document.createElement("option");
+    otherEditOption.textContent = category.name;
+    otherEditOption.setAttribute("data-id", category.id);
+    selectEditCategory.appendChild(otherEditOption);
+  });
   // Ajout d'un écouteur d'évenement qui se déclanche lorsque l'élément avec l'ID "editSection" recoit une entrée (ex: champ de saise)
   editSection.addEventListener("input", () => {
     const editTitle = document.querySelector("#title");
